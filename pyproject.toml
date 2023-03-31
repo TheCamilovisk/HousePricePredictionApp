@@ -19,6 +19,7 @@ black = "^23.3.0"
 flake8 = "^6.0.0"
 rope = "^1.7.0"
 jupyterlab = "^3.6.2"
+kaggle = "^1.5.13"
 
 [build-system]
 requires = ["poetry-core"]
