@@ -1,0 +1,27 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+numpy = "*"
+pandas = "*"
+scikit-learn = "*"
+
+[dev-packages]
+black = "*"
+flake8 = "*"
+rope = "*"
+ipywidgets = "*"
+kaggle = "*"
+matplotlib = "*"
+seaborn = "*"
+jupyterlab = "*"
+pyarrow = "*"
+
+[requires]
+python_version = "3.10"
+python_full_version = "3.10.9"
+
+[pipenv]
+allow_prereleases = true
