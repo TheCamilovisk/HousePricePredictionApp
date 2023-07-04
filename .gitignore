@@ -135,3 +135,7 @@ dmypy.json
 # Data folder
 data
 data/
+
+# Artifacts folder
+artifacts
+artifacts/
