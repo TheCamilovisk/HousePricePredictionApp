@@ -7,6 +7,9 @@ name = "pypi"
 numpy = "*"
 pandas = "*"
 scikit-learn = "*"
+xgboost = "*"
+lightgbm = "*"
+catboost = "*"
 
 [dev-packages]
 black = "*"
