@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "housepricepredictionapp"
+version = "0.1.0"
+description = ""
+authors = ["Camilo Gonçalves <camilolgon@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.10.9"
+pandas = "^2.0.3"
+numpy = "^1.25.0"
+scikit-learn = "^1.3.0"
+xgboost = "^1.7.6"
+lightgbm = "^3.3.5"
+catboost = "^1.2"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.3.0"
+rope = "^1.9.0"
+flake8 = "^6.0.0"
+jupyterlab = "^4.0.2"
+cloudpickle = "^2.2.1"
+matplotlib = "^3.7.2"
+seaborn = "^0.12.2"
+pyarrow = "^12.0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
