@@ -1,7 +1,7 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import date
 from enum import Enum
-from typing import Optional
+from typing import List, Optional
 
 
 class PropertyType(str, Enum):
@@ -32,3 +32,10 @@ class House:
 @dataclass
 class SalePrice:
     sale_price: float
+
+
+@dataclass
+class PropertyTypesList:
+    property_types: List[PropertyType] = field(
+        default_factory=lambda: [obj for obj in PropertyType]
+    )
