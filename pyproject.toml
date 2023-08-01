@@ -16,6 +16,7 @@ lightgbm = "^3.3.5"
 catboost = "^1.2"
 fastapi = "^0.100.1"
 uvicorn = {extras = ["standard"], version = "^0.23.1"}
+pydantic-settings = "^2.0.2"
 
 
 [tool.poetry.group.dev.dependencies]
