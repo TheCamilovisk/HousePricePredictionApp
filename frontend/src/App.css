@@ -1,6 +1,6 @@
 .container {
   margin: auto;
-  width: 80vw;
+  width: 70vw;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -93,6 +93,10 @@
   background-color: #00ff88;
   cursor: pointer;
   box-shadow: 0px 10px 40px -12px #00ff8052;
+}
+
+.predict-btn:active {
+  color: #f0ffffde;
 }
 
 .prediction-area {

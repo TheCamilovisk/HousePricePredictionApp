@@ -121,7 +121,7 @@ const App = () => {
           Predict
         </button>
       </form>
-      <div className="prediction-area">
+      <div className="prediction-area prediction-enabled">
         <p>The predicted house price is:</p>
         <div className="prediction">R$ 0,00</div>
       </div>
