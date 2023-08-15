@@ -34,7 +34,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .featurefield > input,
@@ -63,6 +63,12 @@
   width: 100%;
   display: flex;
   flex-direction: row;
+  align-content: space-between;
+  justify-content: center;
+}
+
+.range-feature > input[type="range"] {
+  width: 80%;
 }
 
 .range-feature > p {
