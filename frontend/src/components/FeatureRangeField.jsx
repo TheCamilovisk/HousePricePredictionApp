@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const FeatureRangeField = ({
   label,
@@ -9,6 +9,8 @@ const FeatureRangeField = ({
   currentValue,
   register,
 }) => {
+  const [fieldValue, setFieldValue] = useState(currentValue);
+
   return (
     <div className="featurefield">
       <label htmlFor={id}>{label}</label>
@@ -20,8 +22,9 @@ const FeatureRangeField = ({
           min={min}
           max={max}
           defaultValue={currentValue}
+          onChange={(event) => setFieldValue(event.target.value)}
         />
-        <p>0</p>
+        <p>{fieldValue}</p>
       </div>
     </div>
   );
