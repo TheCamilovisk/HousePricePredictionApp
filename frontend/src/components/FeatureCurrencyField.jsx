@@ -6,8 +6,9 @@ const FeatureCurrencyField = ({ label, id, name, placeholder, register }) => {
     <div className="featurefield">
       <label htmlFor={id}>{label} (R$)</label>
       <input
-        type="text"
+        type="number"
         id={id}
+        step={0.01}
         {...register(name)}
         placeholder={0.0}
         value={currencyValue}

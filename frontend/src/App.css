@@ -49,6 +49,7 @@
 
 .featurefield > input[type="text"],
 .featurefield > input[type="date"],
+.featurefield > input[type="number"],
 .featurefield > select {
   width: 100%;
   box-shadow: 0px 10px 40px #00000056;
