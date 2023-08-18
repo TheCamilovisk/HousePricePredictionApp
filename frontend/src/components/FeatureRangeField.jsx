@@ -1,14 +1,22 @@
 import React from "react";
 
-const FeatureRangeField = ({ label, id, name, min, max, currentValue }) => {
+const FeatureRangeField = ({
+  label,
+  id,
+  name,
+  min,
+  max,
+  currentValue,
+  register,
+}) => {
   return (
     <div className="featurefield">
       <label htmlFor={id}>{label}</label>
       <div className="range-feature">
         <input
           type="range"
-          name={name}
           id={id}
+          {...register(name)}
           min={min}
           max={max}
           defaultValue={currentValue}
@@ -19,7 +27,15 @@ const FeatureRangeField = ({ label, id, name, min, max, currentValue }) => {
   );
 };
 
-const createRangeField = ({ label, id, name, min, max, currentValue }) => (
+const createRangeField = ({
+  label,
+  id,
+  name,
+  min,
+  max,
+  currentValue,
+  register,
+}) => (
   <FeatureRangeField
     label={label}
     id={id}
@@ -27,6 +43,7 @@ const createRangeField = ({ label, id, name, min, max, currentValue }) => (
     min={min}
     max={max}
     currentValue={currentValue}
+    register={register}
     key={id}
   />
 );

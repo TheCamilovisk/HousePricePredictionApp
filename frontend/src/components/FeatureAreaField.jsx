@@ -1,20 +1,26 @@
 import React from "react";
 
-const FeatureAreaField = ({ label, id, name, placeholder }) => {
+const FeatureAreaField = ({ label, id, name, defaultValue, register }) => {
   return (
     <div className="featurefield">
-      <label htmlFor={id}>{label}</label>
-      <input type="text" name={name} id={id} placeholder={placeholder} />
+      <label htmlFor={id}>{label} (m<sup>2</sup>)</label>
+      <input
+        type="number"
+        id={id}
+        {...register(name)}
+        placeholder={defaultValue}
+      />
     </div>
   );
 };
 
-const createAreaField = ({ label, id, name, placeholder }) => (
+const createAreaField = ({ label, id, name, defaultValue, register }) => (
   <FeatureAreaField
     label={label}
     id={id}
     name={name}
-    placeholder={placeholder}
+    defaultValue={defaultValue}
+    register={register}
     key={id}
   />
 );

@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import { useForm } from "react-hook-form";
 
 import { default as Features } from "./containers/Features";
 import { PredictButton, PredictionArea } from "./components";
@@ -19,19 +20,19 @@ const featuresFields = [
     {
       type: "text",
       props: {
-        label: "Neighboor",
-        id: "neighboor",
-        name: "neighboor",
-        placeholder: "Neighboor",
+        label: "Neighborhood",
+        id: "neighborhood",
+        name: "neighborhood",
+        placeholder: "Neighborhood",
       },
     },
     {
       type: "area",
       props: {
         label: "Usable Area",
-        id: "usable_are",
-        name: "usable_are",
-        placeholder: "0",
+        id: "usable_area",
+        name: "usable_area",
+        defaultValue: 0,
       },
     },
   ],
@@ -57,8 +58,8 @@ const featuresFields = [
       type: "currency",
       props: {
         label: "Annual IPTU tax",
-        id: "annul_iptu_tax",
-        name: "annul_iptu_tax",
+        id: "annual_iptu_tax",
+        name: "annual_iptu_tax",
         placeholder: "0",
       },
     },
@@ -101,16 +102,39 @@ const featuresFields = [
 ];
 
 const App = () => {
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = ({
+    usable_area,
+    condominium_fee,
+    annual_iptu_tax,
+    bathrooms,
+    suites,
+    parking_spots,
+    ...data
+  }) => {
+    const new_data = {
+      usable_area: parseInt(usable_area) || 0,
+      condominium_fee: parseFloat(condominium_fee) || 0,
+      annual_iptu_tax: parseFloat(annual_iptu_tax) || 0,
+      bathrooms: parseInt(bathrooms),
+      suites: parseInt(suites),
+      parking_spots: parseInt(parking_spots),
+      ...data,
+    };
+    console.log(new_data);
+  };
+
   return (
     <div className="container">
       <h1>House Price Prediction App</h1>
-      <form action="#">
+      <form onSubmit={handleSubmit(onSubmit)}>
         {featuresFields.map((fields) => (
-          <Features fields={fields} key={v4()} />
+          <Features fields={fields} key={v4()} register={register} />
         ))}
         <PredictButton />
-        <PredictionArea />
       </form>
+      <PredictionArea />
     </div>
   );
 };

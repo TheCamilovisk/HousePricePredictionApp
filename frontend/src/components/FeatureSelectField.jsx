@@ -1,10 +1,10 @@
 import React from "react";
 
-const FeatureSelectField = ({ label, id, name, options }) => {
+const FeatureSelectField = ({ label, id, name, options, register }) => {
   return (
     <div className="featurefield">
       <label htmlFor={id}>{label}</label>
-      <select name={name} id={id}>
+      <select id={id} {...register(name)}>
         {options.map((value, index) => (
           <option value={value} key={id + "option" + index}>
             {value}
@@ -15,13 +15,14 @@ const FeatureSelectField = ({ label, id, name, options }) => {
   );
 };
 
-const createSelectField = ({ label, id, name, options }) => (
+const createSelectField = ({ label, id, name, options, register }) => (
   <FeatureSelectField
     label={label}
     id={id}
     name={name}
     options={options}
-    key={id}
+    register={register}
+    key={id + "_field"}
   />
 );
 
