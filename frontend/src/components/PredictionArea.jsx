@@ -1,10 +1,14 @@
 import React from "react";
 
-const PredictionArea = () => {
+const PredictionArea = ({ predictionValue }) => {
   return (
-    <div className="prediction-area prediction-enabled">
+    <div
+      className={"prediction-area" + (predictionValue? " prediction-enabled": "")}
+    >
       <p>The Predicted house price is:</p>
-      <div className="prediction">R$ 0,00</div>
+      <div className="prediction">
+        R$ {predictionValue ? predictionValue.toFixed(2) : "0,00"}
+      </div>
     </div>
   );
 };
