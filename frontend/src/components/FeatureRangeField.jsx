@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const FeatureRangeField = ({
   label,
@@ -8,8 +8,14 @@ const FeatureRangeField = ({
   max,
   defaultValue,
   register,
+  getValues,
 }) => {
-  const [fieldValue, setFieldValue] = useState(defaultValue);
+  const [fieldValue, setFieldValue] = useState();
+
+  useEffect(() => {
+    const currentValue = getValues(name);
+    setFieldValue(currentValue ? currentValue : defaultValue);
+  }, []);
 
   return (
     <div className="featurefield">
@@ -23,6 +29,7 @@ const FeatureRangeField = ({
           max={max}
           defaultValue={defaultValue}
           onChange={(event) => setFieldValue(event.target.value)}
+          onLoad={(event) => setFieldValue(event.target.value)}
         />
         <p>{fieldValue}</p>
       </div>
@@ -38,6 +45,7 @@ const createRangeField = ({
   max,
   defaultValue,
   register,
+  getValues,
 }) => (
   <FeatureRangeField
     label={label}
@@ -47,6 +55,7 @@ const createRangeField = ({
     max={max}
     defaultValue={defaultValue}
     register={register}
+    getValues={getValues}
     key={id}
   />
 );

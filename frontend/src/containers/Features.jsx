@@ -9,7 +9,7 @@ import {
   createTextField,
 } from "../components";
 
-const createField = ({ type, props, register }) => {
+const createField = ({ type, props, register, getValues }) => {
   let field;
   switch (type) {
     case "text":
@@ -33,7 +33,7 @@ const createField = ({ type, props, register }) => {
       break;
 
     case "range":
-      field = createRangeField({ ...props, register });
+      field = createRangeField({ ...props, register, getValues });
       break;
 
     default:
@@ -43,10 +43,10 @@ const createField = ({ type, props, register }) => {
   return field;
 };
 
-const Features = ({ fields, register }) => {
+const Features = ({ fields, register, getValues }) => {
   return (
     <div className="features">
-      {fields.map((field) => createField({ ...field, register }))}
+      {fields.map((field) => createField({ ...field, register, getValues }))}
     </div>
   );
 };
