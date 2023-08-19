@@ -71,7 +71,7 @@ class TextFieldProps(FeatureFieldPropsBase):
 
 @dataclass
 class AreaFieldProps(FeatureFieldPropsBase):
-    defaultValue: int
+    placeholder: int
 
 
 @dataclass
