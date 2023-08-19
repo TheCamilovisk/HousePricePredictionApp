@@ -9,7 +9,7 @@ import {
   createTextField,
 } from "../components";
 
-const createField = ({ type, props, register, getValues }) => {
+const createField = ({ type, props, register, errors, getValues }) => {
   let field;
   switch (type) {
     case "text":
@@ -21,7 +21,7 @@ const createField = ({ type, props, register, getValues }) => {
       break;
 
     case "area":
-      field = createAreaField({ ...props, register });
+      field = createAreaField({ ...props, register, errors });
       break;
 
     case "date":
@@ -29,7 +29,7 @@ const createField = ({ type, props, register, getValues }) => {
       break;
 
     case "currency":
-      field = createCurrencyField({ ...props, register });
+      field = createCurrencyField({ ...props, register, errors });
       break;
 
     case "range":
@@ -43,10 +43,12 @@ const createField = ({ type, props, register, getValues }) => {
   return field;
 };
 
-const Features = ({ fields, register, getValues }) => {
+const Features = ({ fields, register, errors, getValues }) => {
   return (
     <div className="features">
-      {fields.map((field) => createField({ ...field, register, getValues }))}
+      {fields.map((field) =>
+        createField({ ...field, register, errors, getValues })
+      )}
     </div>
   );
 };

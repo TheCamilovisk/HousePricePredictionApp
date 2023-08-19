@@ -7,7 +7,12 @@ import { PredictButton, PredictionArea } from "./components";
 import { v4 } from "uuid";
 
 const App = () => {
-  const { register, handleSubmit, getValues } = useForm();
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    formState: { errors },
+  } = useForm();
 
   const [featuresFields, setFeaturesFields] = useState(0);
   const [predictionValue, setPredictionValue] = useState(0);
@@ -59,6 +64,7 @@ const App = () => {
               fields={fields}
               key={v4()}
               register={register}
+              errors={errors}
               getValues={getValues}
             />
           ))}
