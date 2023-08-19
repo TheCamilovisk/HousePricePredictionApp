@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const FeatureCurrencyField = ({ label, id, name, placeholder, register }) => {
-  const [currencyValue, setCurrencyValue] = useState("");
+  const [currencyValue, setCurrencyValue] = useState(0);
   return (
     <div className="featurefield">
       <label htmlFor={id}>{label} (R$)</label>
@@ -12,7 +12,7 @@ const FeatureCurrencyField = ({ label, id, name, placeholder, register }) => {
         {...register(name)}
         placeholder={placeholder}
         value={currencyValue}
-        onChange={(event) => setCurrencyValue(parseFloat(event.target.value))}
+        onChange={(event) => setCurrencyValue(event.target.value)}
       />
     </div>
   );
