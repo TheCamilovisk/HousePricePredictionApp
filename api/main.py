@@ -1,7 +1,7 @@
 from contextlib import asynccontextmanager
 from typing import List
 
-from fastapi import FastAPI
+from fastapi import APIRouter, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from .config import Settings
@@ -63,8 +63,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+api_router = APIRouter()
 
-@app.post("/predict/")
+
+@api_router.post("/predict/")
 async def predict(houses: List[House]) -> ApiOutput:
     houses_dicts = houses_as_dicts(houses)
     sales_prices = make_predictions(
@@ -75,7 +77,7 @@ async def predict(houses: List[House]) -> ApiOutput:
     )
 
 
-@app.get("/get-fields/")
+@api_router.get("/get-fields/")
 async def get_fields() -> ApiOutput:
     property_type = FeatureField(
         type=FeatureFieldTypes.select,
@@ -100,7 +102,7 @@ async def get_fields() -> ApiOutput:
     usable_area = FeatureField(
         type=FeatureFieldTypes.area,
         props=AreaFieldProps(
-            label="Usable Area", id="usable_area", name="usable_area", defaultValue=0
+            label="Usable Area", id="usable_area", name="usable_area", placeholder=0
         ),
     )
 
@@ -183,3 +185,6 @@ async def get_fields() -> ApiOutput:
         ],
         status="success",
     )
+
+
+app.include_router(api_router, prefix="/api")
