@@ -11,7 +11,6 @@ const FeatureCurrencyField = ({ label, id, name, placeholder, register }) => {
         step={0.01}
         {...register(name)}
         placeholder={placeholder}
-        value={currencyValue}
         onChange={(event) => setCurrencyValue(event.target.value)}
       />
     </div>
