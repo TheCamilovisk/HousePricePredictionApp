@@ -538,7 +538,7 @@ colorama = {version = "*", markers = "platform_system == \"Windows\""}
 name = "cloudpickle"
 version = "2.2.1"
 description = "Extended pickling support for Python objects"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 files = [
@@ -3768,4 +3768,4 @@ scikit-learn = ["scikit-learn"]
 [metadata]
 lock-version = "2.0"
 python-versions = "3.10.9"
-content-hash = "9334b95d6061ab0aa638c76eb841ae051b95168ee6bfc84f51848cded256a12e"
+content-hash = "7e41372c4a405275e806fb0c5f7425001f9cb2abf3c7dd83329b437198bd43b6"
