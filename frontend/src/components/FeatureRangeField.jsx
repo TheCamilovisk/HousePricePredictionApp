@@ -6,10 +6,10 @@ const FeatureRangeField = ({
   name,
   min,
   max,
-  currentValue,
+  defaultValue,
   register,
 }) => {
-  const [fieldValue, setFieldValue] = useState(currentValue);
+  const [fieldValue, setFieldValue] = useState(defaultValue);
 
   return (
     <div className="featurefield">
@@ -21,7 +21,7 @@ const FeatureRangeField = ({
           {...register(name)}
           min={min}
           max={max}
-          defaultValue={currentValue}
+          defaultValue={defaultValue}
           onChange={(event) => setFieldValue(event.target.value)}
         />
         <p>{fieldValue}</p>
@@ -36,7 +36,7 @@ const createRangeField = ({
   name,
   min,
   max,
-  currentValue,
+  defaultValue,
   register,
 }) => (
   <FeatureRangeField
@@ -45,7 +45,7 @@ const createRangeField = ({
     name={name}
     min={min}
     max={max}
-    currentValue={currentValue}
+    defaultValue={defaultValue}
     register={register}
     key={id}
   />

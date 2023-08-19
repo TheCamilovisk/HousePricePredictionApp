@@ -1,3 +1,5 @@
+import datetime
+import typing
 from dataclasses import dataclass, field
 from datetime import date
 from enum import Enum
@@ -13,6 +15,15 @@ class PropertyType(str, Enum):
     penthouse = "Penthouse"
     studio_apartament = "Studio Apartament"
     residential_building = "Residential Building"
+
+
+class FeatureFieldTypes(str, Enum):
+    select = "select"
+    text = "text"
+    area = "area"
+    date = "date"
+    currency = "currency"
+    range = "range"
 
 
 @dataclass
@@ -39,3 +50,61 @@ class PropertyTypesList:
     property_types: List[PropertyType] = field(
         default_factory=lambda: [obj for obj in PropertyType]
     )
+
+
+@dataclass
+class FeatureFieldPropsBase:
+    label: str
+    id: str
+    name: str
+
+
+@dataclass
+class SelectFieldProps(FeatureFieldPropsBase):
+    options: List[str]
+
+
+@dataclass
+class TextFieldProps(FeatureFieldPropsBase):
+    placeholder: str
+
+
+@dataclass
+class AreaFieldProps(FeatureFieldPropsBase):
+    defaultValue: int
+
+
+@dataclass
+class DateFieldProps(FeatureFieldPropsBase):
+    defaultDate: datetime.date = datetime.date.today()
+
+
+@dataclass
+class CurrencyFieldProps(FeatureFieldPropsBase):
+    placeholder: float
+
+
+@dataclass
+class RangeFieldProps(FeatureFieldPropsBase):
+    min: int
+    max: int
+    defaultValue: int
+
+
+@dataclass
+class FeatureField:
+    type: FeatureFieldTypes
+    props: typing.Union[
+        SelectFieldProps,
+        TextFieldProps,
+        AreaFieldProps,
+        DateFieldProps,
+        CurrencyFieldProps,
+        RangeFieldProps,
+    ]
+
+
+@dataclass
+class ApiOutput:
+    data: typing.Union[List[SalePrice], List[FeatureField]]
+    status: str

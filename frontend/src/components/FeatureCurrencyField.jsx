@@ -10,7 +10,7 @@ const FeatureCurrencyField = ({ label, id, name, placeholder, register }) => {
         id={id}
         step={0.01}
         {...register(name)}
-        placeholder={0.0}
+        placeholder={placeholder}
         value={currencyValue}
         onChange={(event) => setCurrencyValue(parseFloat(event.target.value))}
       />
