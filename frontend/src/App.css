@@ -45,6 +45,7 @@
   background: #514869;
   color: #f0ffffde;
   box-sizing: border-box;
+  margin-top: 3px;
 }
 
 .featurefield > input[type="text"],
@@ -57,7 +58,7 @@
 
 .featurefield > label {
   color: #f0ffffde;
-  margin-bottom: 10px;
+  margin-bottom: 7px;
 }
 
 .range-feature {
@@ -118,4 +119,9 @@
   background-color: #e0de4a;
   box-shadow: 0px 10px 40px -12px #7e7d3a;
   color: #2b134b;
+}
+
+.error {
+  font-size: small;
+  color: red;
 }
