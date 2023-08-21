@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  api:
+    image: backend
+    build:
+      context: backend
+      dockerfile: ./Dockerfile.api
+    container_name: backend
+    env_file:
+      - ./backend/.env
+    networks:
+      - housepriceprediction-network
+    volumes:
+      - ./backend/artifacts:/app/artifacts
+    ports:
+      - 8000:8000
+
+  frontend:
+    image: frontend
+    build: 
+      context: frontend
+      dockerfile: ./Dockerfile.app
+    container_name: frontend
+    env_file:
+      - ./frontend/.env
+    depends_on:
+      - api
+    networks:
+      - housepriceprediction-network
+    ports:
+      - 80:80
+
+networks:
+  housepriceprediction-network:
+    name: housepriceprediction-network
