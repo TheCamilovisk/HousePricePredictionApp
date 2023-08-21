@@ -135,3 +135,7 @@ dmypy.json
 # Data folder
 data
 data/
+
+# Notebooks folder
+notebooks
+notebooks/
