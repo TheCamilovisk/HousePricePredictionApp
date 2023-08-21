@@ -139,3 +139,7 @@ data/
 # Notebooks folder
 notebooks
 notebooks/
+
+# Artifacts folder
+artifacts
+artifacts/
