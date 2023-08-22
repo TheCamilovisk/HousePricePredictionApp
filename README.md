@@ -7,6 +7,9 @@ We'll follow all required steps to build this app, starting with the dataset col
 ## Table of Contents
 
 1.[Introduction](#introduction)
+2.[Run Locally](#run-locally)
+    - [Docker Compose Configuration](#docker-compose-configuration)
+    - [Run the App](#run-the-app)
 
 ## Introduction
 
@@ -23,3 +26,84 @@ We also supply with all Docker files to easily setup and run the application loc
 **Note 1:** This is a complete example solution. If you want just the REST API backend implementation, it can be dound in the backend folder of this respository.
 
 **Note 2:** This project is meant to be for learning purposes, for both readers and myself. So, of you find any problems or are aware of better ways of doing some of the things that I do here, please let me know. And don't forget to be kind.
+
+## Run Locally
+
+I provided all Docker files required to run this project locally. The configuraton itself is pretty simple and easily extendable.
+
+### Docker Compose Configuration
+
+First of all, you need to enter the backend folder and follow the instructions on how to create the data preprocessing and the model files used for inference. With the `.pickle` files created, open the docker-compose file in the root directory of this repository and change the following lines.
+
+```
+version: "3.8"
+
+services:
+  api:
+    image: backend
+    build:
+      context: backend
+      dockerfile: ./Dockerfile.api
+    container_name: backend
+    # env_file:                                 <-- uncomment
+    #   - ./backend/.env                        <-- uncomment and create the file
+    networks:
+      - housepriceprediction-network
+    # volumes:                                  <-- uncomment
+    #   - [ARTIFACTS_FOLDER]:/app/artifacts     <-- uncomment and point to the right folder in the host
+    ports:
+      - 8000:8000
+
+  frontend:
+    image: frontend
+    build: 
+      context: frontend
+      dockerfile: ./Dockerfile.app
+    container_name: frontend
+    # env_file:                                 <-- uncomment
+    #   - ./frontend/.env                       <-- uncomment and create the file
+    depends_on:
+      - api
+    networks:
+      - housepriceprediction-network
+    ports:
+      - 80:80
+
+networks:
+  housepriceprediction-network:
+    name: housepriceprediction-network
+
+```
+
+After that, proceed to create the `./backend/.env` file, with the following content:
+
+```
+ARTIFACTS_DIR=[ARTIFACTS_FOLDER]                        <-- place the right folder
+FEATURES_TRANSFORM_NAME="preprocessing_pipeline"
+TARGET_TRANSFORM_NAME="target_transform"
+PREDICTOR_NAME="regression_model"
+```
+
+Now, create the `./frontend/.env` file, with the following content:
+
+```
+VITE_API_URL=http://127.0.0.1:8000/api/                 <-- this is the default endpoint URL
+```
+
+**Note 3:** The `.env` files that are used by defrault are just for demonstration purposes. These files can be in any location, just be sure to supply the right path the `env_file` parameter.
+
+**Note 4:** The `ARTIFACTS_FOLDER` is also an example. You can store the artifacts anywhere, just be sure that all required artifacts are located in the same folder.
+
+### Run the App
+
+After making the required modifications according with your choice, in the root folder of the project, run:
+
+```
+docker compose up
+```
+
+Wait for the services startup to complete and, in your browser, access `http://localhost`. You should see the glorious app page.
+
+<!-- Link Definitions -->
+
+[app-screen]: https://raw.githubusercontent.com/TheCamilovisk/HousePricePredictionApp/main/imgs/app-screen.png
