@@ -6,8 +6,9 @@ We'll follow all required steps to build this app, starting with the dataset col
 
 ## Table of Contents
 
-1.[Introduction](#introduction)
-2.[Run Locally](#run-locally)
+
+1. [Introduction](#introduction)
+2. [Run Locally](#run-locally)
     - [Docker Compose Configuration](#docker-compose-configuration)
     - [Run the App](#run-the-app)
 
