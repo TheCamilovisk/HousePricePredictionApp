@@ -104,6 +104,8 @@ docker compose up
 
 Wait for the services startup to complete and, in your browser, access `http://localhost`. You should see the glorious app page.
 
+![House Price Prediction App Page][app-screen]
+
 <!-- Link Definitions -->
 
 [app-screen]: https://raw.githubusercontent.com/TheCamilovisk/HousePricePredictionApp/main/imgs/app-screen.png
