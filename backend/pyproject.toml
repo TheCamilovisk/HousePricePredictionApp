@@ -24,13 +24,16 @@ cloudpickle = "^2.2.1"
 black = "^23.3.0"
 rope = "^1.9.0"
 flake8 = "^6.0.0"
-jupyterlab = "^4.0.2"
+
+
+
+[tool.poetry.group.ml.dependencies]
+jupyterlab = "^4.0.5"
+ipywidgets = "^8.1.0"
 matplotlib = "^3.7.2"
 seaborn = "^0.12.2"
-pyarrow = "^12.0.1"
-optuna = "^3.2.0"
-ipywidgets = "^8.1.0"
-
+pyarrow = "^13.0.0"
+optuna = "^3.3.0"
 
 [build-system]
 requires = ["poetry-core"]
