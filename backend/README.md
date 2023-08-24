@@ -4,7 +4,16 @@ This is the backend component of the House Price Prediction App. It's a microser
 
 ## Table of Contents
 
-- [Introduction](#introduction)
+1. [Introduction](#introduction)
+2. [Run Locally](#run-locally)
+    - [Install the Packages](#install-the-packages)
+        - [Install dev and main packages](#install-dev-and-main-packages)
+        - [Install packages required for the API to run](#install-packages-required-for-the-api-to-run)
+        - [Activate the virtual environment](#activate-the-virtual-environment)
+        - [Setting environment variables](#setting-environment-variables)
+        - [Run the API](#run-the-api)
+    - [Run Using Docker](#run-using-docker)
+3. [API Documentation](#api-documentation)
 
 ## Introduction
 
