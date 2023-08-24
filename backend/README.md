@@ -41,7 +41,7 @@ There are two ways to run the application locally.
 
 ### Install the Packages
 
-I personaly like to use Poetry to manage Python dependencies. This respository provides the `pyproject.toml` to install all required packages using it.
+The Poetry Package Manager was used to manage Python dependencies. The `pyproject.toml` file is provided to install all required packages.
 
 #### Install dev and main packages
 
