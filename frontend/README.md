@@ -54,9 +54,12 @@ Remember to replace `API_URL` with the actual url of the REST API.
 
 ## Application Screen
 
-This application is pretty simple. I tried to make the interface as cleaner as possible.
+With the application running, in your browser, access http://localhost. You should see the glorious app page.
 
 ![House Price Prediction App Page][app-screen]
+
+
+This application is pretty simple. I tried to make the interface as cleaner as possible.
 
 <!-- Link Definitions -->
 
