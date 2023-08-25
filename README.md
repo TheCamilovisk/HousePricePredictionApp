@@ -46,12 +46,15 @@ services:
       context: backend
       dockerfile: ./Dockerfile.api
     container_name: backend
-    # env_file:                                 <-- uncomment
-    #   - ./backend/.env                        <-- uncomment and create the file
+    environment:
+      - ARTIFACTS_DIR=/app/artifacts
+      - FEATURES_TRANSFORM_NAME=preprocessing_pipeline
+      - TARGET_TRANSFORM_NAME=target_transform
+      - PREDICTOR_NAME=regression_model
+    volumes:
+      - [ARTIFACTS_FOLDER]:/app/artifacts     <-- replace ARTIFACTS_FOLDER with the right artifacts folder
     networks:
       - housepriceprediction-network
-    # volumes:                                  <-- uncomment
-    #   - [ARTIFACTS_FOLDER]:/app/artifacts     <-- uncomment and point to the right folder in the host
     ports:
       - 8000:8000
 
@@ -61,8 +64,8 @@ services:
       context: frontend
       dockerfile: ./Dockerfile.app
     container_name: frontend
-    # env_file:                                 <-- uncomment
-    #   - ./frontend/.env                       <-- uncomment and create the file
+    environment:
+      - VITE_API_URL=http://127.0.0.1:8000/api/
     depends_on:
       - api
     networks:
@@ -74,26 +77,10 @@ networks:
   housepriceprediction-network:
     name: housepriceprediction-network
 
-```
-
-After that, proceed to create the `./backend/.env` file, with the following content:
 
 ```
-ARTIFACTS_DIR=[ARTIFACTS_FOLDER]                        <-- place the right folder
-FEATURES_TRANSFORM_NAME="preprocessing_pipeline"
-TARGET_TRANSFORM_NAME="target_transform"
-PREDICTOR_NAME="regression_model"
-```
 
-Now, create the `./frontend/.env` file, with the following content:
-
-```
-VITE_API_URL=http://127.0.0.1:8000/api/                 <-- this is the default endpoint URL
-```
-
-**Note 3:** The `.env` files that are used by defrault are just for demonstration purposes. These files can be in any location, just be sure to supply the right path the `env_file` parameter.
-
-**Note 4:** The `ARTIFACTS_FOLDER` is also an example. You can store the artifacts anywhere, just be sure that all required artifacts are located in the same folder.
+**Note 3:** The `ARTIFACTS_FOLDER` is an example. You can store the artifacts anywhere, just be sure that all required artifacts are located in the same folder.
 
 ### Run the App
 
