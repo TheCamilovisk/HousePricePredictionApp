@@ -34,6 +34,7 @@ matplotlib = "^3.7.2"
 seaborn = "^0.12.2"
 pyarrow = "^13.0.0"
 optuna = "^3.3.0"
+kaggle = "^1.5.16"
 
 [build-system]
 requires = ["poetry-core"]
