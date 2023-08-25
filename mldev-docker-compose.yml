@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  api:
+    image: machine-learning
+    build:
+      context: backend
+      dockerfile: ./Dockerfile.mldev
+    container_name: machine-learning
+    environment:
+      - ARTIFACTS_DIR=/app/artifacts
+      - FEATURES_TRANSFORM_NAME=preprocessing_pipeline
+      - TARGET_TRANSFORM_NAME=target_transform
+      - PREDICTOR_NAME=regression_model
+      # Kaggle CLI configuration
+      - KAGGLE_USERNAME=[KAGGLE_USERNAME]
+      - KAGGLE_KEY=[KAGGLE_KEY]
+    volumes:
+      - [REPOSITORY_ROOT]/backend/artifacts:/app/artifacts
+      - [REPOSITORY_ROOT]/backend/notebooks:/app/notebooks
+      # Uncomment this line if you want to keep the downloaded dataset and processed files.
+      # - [REPOSITORY_ROOT]/backend/data:/app/data
+    ports:
+      - 8888:8888

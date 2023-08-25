@@ -13,7 +13,7 @@ services:
       - TARGET_TRANSFORM_NAME=target_transform
       - PREDICTOR_NAME=regression_model
     volumes:
-      - [ARTIFACTS_FOLDER]:/app/artifacts
+      - [REPOSITORY_ROOT]/backend/artifacts:/app/artifacts
     networks:
       - housepriceprediction-network
     ports:
