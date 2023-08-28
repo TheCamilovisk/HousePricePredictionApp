@@ -2,14 +2,14 @@
 
 In this project we'll go through a complete Machine Learning workflow to build a web app where a user can input some house features (e.g.: input, number of suites, usable area, etc.) and a prediction of the house price will be returned.
 
-We'll follow all required steps to build this app, starting with the dataset collection and analysis, passing trhough the data pre-processing, the Machine Learning model building and finishing with a nice web UI.
+We'll follow all required steps to build this app, starting with the dataset collection and analysis, passing through the data pre-processing, the Machine Learning model building and finishing with a nice web UI.
 
 ## Table of Contents
 
 
 1. [Introduction](#introduction)
 2. [Run Locally](#run-locally)
-    - [Docker Compose Configuration](#docker-compose-configuration)
+    - [Generate the Artifacts](#generate-the-artifacts)
     - [Run the App](#run-the-app)
 
 ## Introduction
@@ -22,72 +22,53 @@ In this project we'll go through a complete process of extract insights of a dat
 
 The application consists in 2 main components: the backend, written in Python, and the frontend written in Javascript using the React library.
 
-We also supply with all Docker files to easily setup and run the application locally. I also plan to create a complete serverless cloud hosting to publish a live demo, so stay tuned.
+We also supply with all Docker files to easily setup, prototype/train the machine learning model and run the application locally. I also plan to create a complete serverless cloud hosting to publish a live demo, so stay tuned.
 
-**Note 1:** This is a complete example solution. If you want just the REST API backend implementation, it can be dound in the backend folder of this respository.
+**Note 1:** This is a complete example solution. If you want just the REST API backend implementation, it can be found in the [backend folder of this respository](https://github.com/TheCamilovisk/HousePricePredictionApp/tree/main/backend).
 
-**Note 2:** This project is meant to be for learning purposes, for both readers and myself. So, of you find any problems or are aware of better ways of doing some of the things that I do here, please let me know. And don't forget to be kind.
+**Note 2:** If you want the frontend implementation, it can be found in the [frontend folder of this repository](https://github.com/TheCamilovisk/HousePricePredictionApp/tree/main/frontend).
+
+**Note 3:** This project is meant to be for learning purposes, for both readers and myself. So, of you find any problems or are aware of better ways of doing some of the things that I do here, please let me know. And don't forget to be kind.
 
 ## Run Locally
 
-I provided all Docker files required to run this project locally. The configuraton itself is pretty simple and easily extendable.
+### Generate the Artifacts
 
-### Docker Compose Configuration
-
-First of all, you need to enter the backend folder and follow the instructions on how to create the data preprocessing and the model files used for inference. With the `.pickle` files created, open the docker-compose file in the root directory of this repository and change the following lines.
+To run this app, you'll need to generate all model artifacts previously. To do this, first you'll need to define your kaggle credentials as environment variables. Create you account (if you haven't already) and follow these instructions to generate you credentials `.json`. Then, open your terminal and define the following variables in your shell prompt accordingly.
 
 ```
-version: "3.8"
-
-services:
-  api:
-    image: backend
-    build:
-      context: backend
-      dockerfile: ./Dockerfile.api
-    container_name: backend
-    environment:
-      - ARTIFACTS_DIR=/app/artifacts
-      - FEATURES_TRANSFORM_NAME=preprocessing_pipeline
-      - TARGET_TRANSFORM_NAME=target_transform
-      - PREDICTOR_NAME=regression_model
-    volumes:
-      - [ARTIFACTS_FOLDER]:/app/artifacts     <-- replace ARTIFACTS_FOLDER with the right artifacts folder
-    networks:
-      - housepriceprediction-network
-    ports:
-      - 8000:8000
-
-  frontend:
-    image: frontend
-    build: 
-      context: frontend
-      dockerfile: ./Dockerfile.app
-    container_name: frontend
-    environment:
-      - VITE_API_URL=http://127.0.0.1:8000/api/
-    depends_on:
-      - api
-    networks:
-      - housepriceprediction-network
-    ports:
-      - 80:80
-
-networks:
-  housepriceprediction-network:
-    name: housepriceprediction-network
-
-
+export KAGGLE_USERNAME=[JSON_USERNAME]
+export KAGGLE_KEY=[JSON_KEY]
 ```
 
-**Note 3:** The `ARTIFACTS_FOLDER` is an example. You can store the artifacts anywhere, just be sure that all required artifacts are located in the same folder.
+Finally, without closing your terminal, setup the environment using Docker Compose.
+
+```
+docker compose -f mldev-docker-compose.yml up
+```
+
+Wait the setup to finish and you should see a line like in the figure below. `Ctrl + click` or copy/paste the line in your browser to open the Jupyter environment.
+
+![Jupyter lab URL][jupyter-url]
+
+In the Jupyer lab home screen, in theleft sidebar, open the notebooks folder and run the notebook named `build-artifacts.ipynb`.
+
+![Jupyter home screen][jupyter-home]
+
+![Build Artifacts notebook][build-artifacts-notebook]
+
+Wait for the notebook to finish. At the end, you should have three `.pickle` files in the `backend/artifacts` folder.
+
+![Artifacts files][artifacts-files].
+
+Now you're able to run the app.
 
 ### Run the App
 
-After making the required modifications according with your choice, in the root folder of the project, run:
+After creating all model artifacts, with the `.pickle` files created, use the Docker Compose tool to run the app environment.
 
 ```
-docker compose up
+docker compose -f app-docker-compose.yml up
 ```
 
 Wait for the services startup to complete and, in your browser, access `http://localhost`. You should see the glorious app page.
@@ -97,3 +78,7 @@ Wait for the services startup to complete and, in your browser, access `http://l
 <!-- Link Definitions -->
 
 [app-screen]: https://raw.githubusercontent.com/TheCamilovisk/HousePricePredictionApp/main/imgs/app-screen.png
+[jupyter-url]: https://raw.githubusercontent.com/TheCamilovisk/HousePricePredictionApp/main/imgs/jupyter-url.png
+[jupyter-home]: https://raw.githubusercontent.com/TheCamilovisk/HousePricePredictionApp/main/imgs/jupyter-home.png
+[build-artifacts-notebook]: https://raw.githubusercontent.com/TheCamilovisk/HousePricePredictionApp/main/imgs/build-artifacts-notebook.png
+[artifacts-files]: https://raw.githubusercontent.com/TheCamilovisk/HousePricePredictionApp/main/imgs/artifacts-files.png
