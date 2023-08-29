@@ -14,6 +14,9 @@ This is the backend component of the House Price Prediction App. It's a microser
         - [Run the API](#run-the-api)
     - [Run Using Docker](#run-using-docker)
 3. [API Documentation](#api-documentation)
+4. [Run the Machine Learning Development Environment](#run-the-machine-learning-development-environment)
+    - [Setting Development Environment Variables](#setting-development-environment-variables)
+    - [Run the Environment](#run-the-machine-learning-development-environment)
 
 ## Introduction
 
@@ -129,6 +132,8 @@ docker run -p 8888:[HOST_PORT] \
 -e KAGGLE_KEY=[JSON_KEY]machine-learning \
 machine-learning
 ```
+
+### Run the Environment
 
 Where `HOST_PORT` is the port in your host machine that you want to access the API through, `ARTIFACTS_FOLDER` is the artifacts folder in the host system, `NOTEBOOKS_FOLDER` is the notebooks folder in the host system and `JSON_USERNAME` and `KAGGLE_KEY` are, respectively, the username and key, found in your kaggle credentials `.json` file.
 ```
