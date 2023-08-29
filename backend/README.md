@@ -113,6 +113,40 @@ With the API server running in your machine, go to you browser and open the link
 
 ![OpenAPI documentation][openapi-docs]
 
+## Run the Machine Learning Development Environment
+
+To run the environment where you can prototype and test the machine learning model used in this project, follow these steps.
+
+### Setting Development Environment Variables
+
+In addition to [the app environment variables](#setting-environment-variables), you must also define the Kaggle credentials, to be able to download the required dataset.Create you account (if you haven't already) and follow these instructions to generate you credentials `.json`. Then, open your terminal and run: 
+
+```
+docker run -p 8888:[HOST_PORT] \
+-v [ARTIFACTS_FOLDER]:/app/artifacts \
+-v [NOTEBOOKS_FOLDER]:/app/notebooks \
+-e KAGGLE_USERNAME=[JSON_USERNAME] 
+-e KAGGLE_KEY=[JSON_KEY]machine-learning \
+machine-learning
+```
+
+Where `HOST_PORT` is the port in your host machine that you want to access the API through, `ARTIFACTS_FOLDER` is the artifacts folder in the host system, `NOTEBOOKS_FOLDER` is the notebooks folder in the host system and `JSON_USERNAME` and `KAGGLE_KEY` are, respectively, the username and key, found in your kaggle credentials `.json` file.
+```
+docker compose -f mldev-docker-compose.yml up
+```
+
+Wait the setup to finish and you should see a line like in the figure below. `Ctrl + click` or copy/paste the line in your browser to open the Jupyter environment.
+
+![Jupyter lab URL][jupyter-url]
+
+In the Jupyter lab home screen, in the left sidebar, open the notebooks folder. There, in the **numbered notebooks**, you'll find all prototyping and pipeline design that I've made for this project.
+
+![Jupyter home screen][jupyter-home]
+
+![ML notebooks][ml-notebooks]
+
+**Note:** The `build-artifacts.ipynb` notebook is a summarization of all the other notebooks, meant to create all necessary artifacts to run the main application.
+
 <!-- Link Definitions -->
 
 [fastapi]: https://fastapi.tiangolo.com/
@@ -133,3 +167,7 @@ With the API server running in your machine, go to you browser and open the link
 [flake8]: https://flake8.pycqa.org/en/latest/
 [black]: https://github.com/psf/black
 [openapi-docs]: https://raw.githubusercontent.com/TheCamilovisk/HousePricePredictionApp/main/imgs/openapi-docs.png
+[jupyter-url]: https://raw.githubusercontent.com/TheCamilovisk/HousePricePredictionApp/main/imgs/jupyter-url.png
+[jupyter-home]: https://raw.githubusercontent.com/TheCamilovisk/HousePricePredictionApp/main/imgs/jupyter-home.png
+[ml-notebooks]: https://raw.githubusercontent.com/TheCamilovisk/HousePricePredictionApp/main/imgs/ml-notebooks.png
+[artifacts-files]: https://raw.githubusercontent.com/TheCamilovisk/HousePricePredictionApp/main/imgs/artifacts-files.png
