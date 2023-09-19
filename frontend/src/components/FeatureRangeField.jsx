@@ -37,27 +37,4 @@ const FeatureRangeField = ({
   );
 };
 
-const createRangeField = ({
-  label,
-  id,
-  name,
-  min,
-  max,
-  defaultValue,
-  register,
-  getValues,
-}) => (
-  <FeatureRangeField
-    label={label}
-    id={id}
-    name={name}
-    min={min}
-    max={max}
-    defaultValue={defaultValue}
-    register={register}
-    getValues={getValues}
-    key={id}
-  />
-);
-
-export { FeatureRangeField, createRangeField };
+export default FeatureRangeField;

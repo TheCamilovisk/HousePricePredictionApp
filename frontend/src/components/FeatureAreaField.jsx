@@ -17,30 +17,13 @@ const FeatureAreaField = ({
       <input
         type="number"
         id={id}
-        {...register(name, { required: "This field is required and must be a positive number." })}
+        {...register(name, {
+          required: "This field is required and must be a positive number.",
+        })}
         placeholder={placeholder}
       />
     </div>
   );
 };
 
-const createAreaField = ({
-  label,
-  id,
-  name,
-  placeholder,
-  register,
-  errors,
-}) => (
-  <FeatureAreaField
-    label={label}
-    id={id}
-    name={name}
-    placeholder={placeholder}
-    register={register}
-    errors={errors}
-    key={id}
-  />
-);
-
-export { FeatureAreaField, createAreaField };
+export default FeatureAreaField;

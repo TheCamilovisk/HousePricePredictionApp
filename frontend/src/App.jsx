@@ -3,8 +3,16 @@ import "./App.css";
 import { useForm } from "react-hook-form";
 
 import { default as Features } from "./containers/Features";
-import { PredictButton, PredictionArea } from "./components";
-import { v4 } from "uuid";
+import {
+  FeatureAreaField,
+  FeatureCurrencyField,
+  FeatureDateField,
+  FeatureRangeField,
+  FeatureSelectField,
+  FeatureTextField,
+  PredictButton,
+  PredictionArea,
+} from "./components";
 
 const App = () => {
   const {
@@ -14,15 +22,15 @@ const App = () => {
     formState: { errors },
   } = useForm();
 
-  const [featuresFields, setFeaturesFields] = useState(0);
+  const [propertyTypes, setPropertyTypes] = useState([]);
   const [predictionValue, setPredictionValue] = useState(0);
 
   const apiUrl = import.meta.env.VITE_API_URL;
 
-  const getApiFieldsData = async () => {
-    await fetch(apiUrl + "get-fields/")
+  const getApiPropertyTypeOptions = async () => {
+    await fetch(apiUrl + "property-types/")
       .then((response) => response.json())
-      .then(({ data }) => setFeaturesFields(data));
+      .then(({ options }) => setPropertyTypes(options));
   };
 
   const getApiPrediction = async (data) => {
@@ -33,21 +41,14 @@ const App = () => {
         "Content-Type": "application/json",
       },
     };
+    console.log(requestOptions);
     await fetch(apiUrl + "predict/", requestOptions)
       .then((response) => response.json())
-      .then(({ data }) => setPredictionValue(data[0].sale_price));
-  };
-
-  const getGroupedData = () => {
-    let groupedData = [];
-    for (let i = 0; i < Math.ceil(featuresFields.length / 3); i++) {
-      groupedData.push(featuresFields.slice(i * 3, i * 3 + 3));
-    }
-    return groupedData;
+      .then(({ sale_prices }) => setPredictionValue(sale_prices[0]));
   };
 
   useEffect(() => {
-    getApiFieldsData();
+    getApiPropertyTypeOptions();
   }, []);
 
   const onSubmit = (data) => {
@@ -58,16 +59,102 @@ const App = () => {
     <div className="container">
       <h1>House Price Prediction App</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
-        {featuresFields &&
-          getGroupedData().map((fields) => (
-            <Features
-              fields={fields}
-              key={v4()}
-              register={register}
-              errors={errors}
-              getValues={getValues}
-            />
-          ))}
+        {propertyTypes && (
+          <>
+            <Features>
+              <FeatureSelectField
+                label={"Property Type"}
+                id={"property_type"}
+                name={"property_type"}
+                options={propertyTypes}
+                register={register}
+                errors={errors}
+              />
+              <FeatureTextField
+                label={"Neighborhood"}
+                id={"neighborhood"}
+                name={"neighborhood"}
+                placeholder={"Neighborhood"}
+                register={register}
+              />
+              <FeatureAreaField
+                label={"Usable area"}
+                id={"usable_area"}
+                name={"usable_area"}
+                placeholder={0}
+                register={register}
+                errors={errors}
+              />
+            </Features>
+            <Features>
+              <FeatureDateField
+                label={"Ad Date"}
+                id={"ad_date"}
+                name={"ad_date"}
+                defaultDate={new Date().toISOString().substring(0, 10)}
+                register={register}
+              />
+              <FeatureCurrencyField
+                label={"Condominium Fee"}
+                id={"condominium_fee"}
+                name={"condominium_fee"}
+                placeholder={0.0}
+                register={register}
+                errors={errors}
+              />
+              <FeatureCurrencyField
+                label={"Annual IPTU Tax"}
+                id={"annual_iptu_tax"}
+                name={"annual_iptu_tax"}
+                placeholder={0.0}
+                register={register}
+                errors={errors}
+              />
+            </Features>
+            <Features>
+              <FeatureRangeField
+                label={"Bedrooms"}
+                id={"bedrooms"}
+                name={"bedrooms"}
+                min={0}
+                max={7}
+                defaultValue={1}
+                register={register}
+                getValues={getValues}
+              />
+              <FeatureRangeField
+                label={"Bathrooms"}
+                id={"bathrooms"}
+                name={"bathrooms"}
+                min={0}
+                max={7}
+                defaultValue={1}
+                register={register}
+                getValues={getValues}
+              />
+              <FeatureRangeField
+                label={"Suites"}
+                id={"suites"}
+                name={"suites"}
+                min={0}
+                max={7}
+                defaultValue={0}
+                register={register}
+                getValues={getValues}
+              />
+              <FeatureRangeField
+                label={"Parking spots"}
+                id={"parking_spots"}
+                name={"parking_spots"}
+                min={0}
+                max={7}
+                defaultValue={1}
+                register={register}
+                getValues={getValues}
+              />
+            </Features>
+          </>
+        )}
         <PredictButton />
       </form>
       <PredictionArea predictionValue={predictionValue} />

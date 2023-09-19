@@ -1,6 +1,13 @@
 import React from "react";
 
-const FeatureCurrencyField = ({ label, id, name, placeholder, register, errors }) => {
+const FeatureCurrencyField = ({
+  label,
+  id,
+  name,
+  placeholder,
+  register,
+  errors,
+}) => {
   return (
     <div className="featurefield">
       <label htmlFor={id}>{label} (R$)</label>
@@ -19,16 +26,4 @@ const FeatureCurrencyField = ({ label, id, name, placeholder, register, errors }
   );
 };
 
-const createCurrencyField = ({ label, id, name, placeholder, register, errors }) => (
-  <FeatureCurrencyField
-    label={label}
-    id={id}
-    name={name}
-    placeholder={placeholder}
-    register={register}
-    errors={errors}
-    key={id}
-  />
-);
-
-export { FeatureCurrencyField, createCurrencyField };
+export default FeatureCurrencyField;
