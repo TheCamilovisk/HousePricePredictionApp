@@ -13,7 +13,7 @@ const FeatureCurrencyField = ({ label, id, name, placeholder, register, errors }
           required: "This field is required and must be a positive number.",
         })}
         placeholder={placeholder}
-        onChange={(event) => setCurrencyValue(event.target.value)}
+        onChange={(event) => event.target.value}
       />
     </div>
   );
