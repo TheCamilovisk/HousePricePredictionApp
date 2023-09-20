@@ -6,5 +6,7 @@ class Settings(BaseSettings):
     features_transform_name: str
     target_transform_name: str
     predictor_name: str
+    property_types_name: str
+    neighborhood_name: str
 
     model_config = SettingsConfigDict(env_file=".env")
