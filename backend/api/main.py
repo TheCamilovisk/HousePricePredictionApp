@@ -5,14 +5,22 @@ from fastapi import APIRouter, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from .config import Settings
-from .load_utils import load_model, load_preprocessing_pipelines
+from .load_utils import (
+    load_model,
+    load_neighborhoods_list,
+    load_preprocessing_pipelines,
+    load_property_types_list,
+)
 from .ml import make_predictions
-from .models import House, SalePicesPredictions, OptionsListOutput, PropertyType
+from .models import House, OptionsListOutput, SalePicesPredictions
 from .utils import houses_as_dicts
 
 predictor = None
 features_transform = None
 target_transform = None
+
+property_types_list = None
+neighborhood_list = None
 
 
 @asynccontextmanager
@@ -20,16 +28,24 @@ async def lifespan(app: FastAPI):
     global predictor
     global features_transform
     global target_transform
+    global property_types_list
+    global neighborhood_list
 
     settings = Settings()
 
     features_transform, target_transform = load_preprocessing_pipelines(settings)
     predictor = load_model(settings)
+
+    property_types_list = load_property_types_list(settings)
+    neighborhood_list = load_neighborhoods_list(settings)
+
     yield
 
     del features_transform
     del target_transform
     del predictor
+    del property_types_list
+    del neighborhood_list
 
 
 app = FastAPI(lifespan=lifespan)
@@ -62,7 +78,12 @@ async def predict(houses: List[House]) -> SalePicesPredictions:
 
 @api_router.get("/property-types/")
 async def property_types() -> OptionsListOutput:
-    return OptionsListOutput(options=[opt for opt in PropertyType])
+    return OptionsListOutput(options=property_types_list)
+
+
+@api_router.get("/neighborhoods/")
+async def neighborhoods() -> OptionsListOutput:
+    return OptionsListOutput(options=neighborhood_list)
 
 
 app.include_router(api_router, prefix="/api")
