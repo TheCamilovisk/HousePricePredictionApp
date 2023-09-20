@@ -3,7 +3,7 @@ from typing import List
 import pandas as pd
 import sklearn
 
-from .models import House
+from .entities import House
 from .protocols import Predictor, Transform
 
 

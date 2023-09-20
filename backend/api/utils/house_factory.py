@@ -3,7 +3,7 @@ from datetime import date, datetime
 from enum import Enum
 from typing import Any, List
 
-from api.models import House
+from api.entities import House
 
 
 def house_factory(data: dict) -> dict:

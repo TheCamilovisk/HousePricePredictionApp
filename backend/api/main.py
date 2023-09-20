@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .config import Settings
 from .ml import make_predictions
-from .models import House, OptionsListOutput, SalePicesPredictions
+from .entities import House, OptionsListOutput, SalePicesPredictions
 from .utils import (
     houses_as_dicts,
     load_model,
