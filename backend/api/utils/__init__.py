@@ -1,4 +1,3 @@
-from .house_factory import houses_as_dicts
 from .load_utils import (
     load_model,
     load_neighborhoods_list,
@@ -7,7 +6,6 @@ from .load_utils import (
 )
 
 __all__ = [
-    "houses_as_dicts",
     "load_model",
     "load_neighborhoods_list",
     "load_preprocessing_pipelines",
