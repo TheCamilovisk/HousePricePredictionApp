@@ -15,19 +15,10 @@ class PropertyType(str, Enum):
     residential_building = "Residential Building"
 
 
-class FeatureFieldTypes(str, Enum):
-    select = "select"
-    text = "text"
-    area = "area"
-    date = "date"
-    currency = "currency"
-    range = "range"
-
-
 @dataclass
 class House:
     neighborhood: str
-    property_type: PropertyType = PropertyType.apartment
+    property_type: PropertyType
     usable_area: float
     ad_date: date
     bathrooms: Optional[float] = None
@@ -36,7 +27,7 @@ class House:
     parking_spots: Optional[float] = None
     condominium_fee: Optional[float] = None
     annual_iptu_tax: Optional[float] = None
-    
+
 
 @dataclass
 class SalePicesPredictions:
