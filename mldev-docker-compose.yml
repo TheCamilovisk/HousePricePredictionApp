@@ -12,6 +12,8 @@ services:
       - FEATURES_TRANSFORM_NAME=preprocessing_pipeline
       - TARGET_TRANSFORM_NAME=target_transform
       - PREDICTOR_NAME=regression_model
+      - PROPERTY_TYPES_NAME=property_types
+      - NEIGHBORHOOD_NAME=neighborhoods
       # Kaggle CLI configuration
       - KAGGLE_USERNAME=${KAGGLE_USERNAME}
       - KAGGLE_KEY=${KAGGLE_KEY}
@@ -19,6 +21,6 @@ services:
       - ./backend/artifacts:/app/artifacts
       - ./backend/notebooks:/app/notebooks
       # Uncomment this line if you want to keep the downloaded dataset and processed files.
-      # - [REPOSITORY_ROOT]/backend/data:/app/data
+      - backend/data:/app/data
     ports:
       - 8888:8888

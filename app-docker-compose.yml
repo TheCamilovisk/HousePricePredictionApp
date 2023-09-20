@@ -12,6 +12,8 @@ services:
       - FEATURES_TRANSFORM_NAME=preprocessing_pipeline
       - TARGET_TRANSFORM_NAME=target_transform
       - PREDICTOR_NAME=regression_model
+      - PROPERTY_TYPES_NAME=property_types
+      - NEIGHBORHOOD_NAME=neighborhoods
     volumes:
       - ./backend/artifacts:/app/artifacts
     networks:
