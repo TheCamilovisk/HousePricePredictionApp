@@ -2,8 +2,8 @@ import pickle
 from os.path import exists, join
 from typing import List, Tuple, Union
 
-from .config import Settings
-from .protocols import Predictor, Transform
+from api.config import Settings
+from api.protocols import Predictor, Transform
 
 
 def load_artifact(

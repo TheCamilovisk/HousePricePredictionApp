@@ -5,15 +5,15 @@ from fastapi import APIRouter, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from .config import Settings
-from .load_utils import (
+from .ml import make_predictions
+from .models import House, OptionsListOutput, SalePicesPredictions
+from .utils import (
+    houses_as_dicts,
     load_model,
     load_neighborhoods_list,
     load_preprocessing_pipelines,
     load_property_types_list,
 )
-from .ml import make_predictions
-from .models import House, OptionsListOutput, SalePicesPredictions
-from .utils import houses_as_dicts
 
 predictor = None
 features_transform = None
