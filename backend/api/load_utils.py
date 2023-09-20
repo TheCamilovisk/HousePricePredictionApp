@@ -1,6 +1,6 @@
 import pickle
 from os.path import exists, join
-from typing import Tuple, Union
+from typing import List, Tuple, Union
 
 from .config import Settings
 from .protocols import Predictor, Transform
@@ -33,3 +33,11 @@ def load_preprocessing_pipelines(settings: Settings) -> Tuple[Transform, Transfo
 
 def load_model(settings: Settings) -> Predictor:
     return load_artifact(settings.artifacts_dir, settings.predictor_name)
+
+
+def load_property_types_list(settings: Settings) -> List[str]:
+    return load_artifact(settings.artifacts_dir, settings.property_types_name)
+
+
+def load_neighborhoods_list(settings: Settings) -> List[str]:
+    return load_artifact(settings.artifacts_dir, settings.neighborhood_name)
