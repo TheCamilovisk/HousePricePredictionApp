@@ -23,6 +23,7 @@ const App = () => {
   } = useForm();
 
   const [propertyTypes, setPropertyTypes] = useState([]);
+  const [neighborhoods, setNeighborhoods] = useState([]);
   const [predictionValue, setPredictionValue] = useState(0);
 
   const apiUrl = import.meta.env.VITE_API_URL;
@@ -31,6 +32,12 @@ const App = () => {
     await fetch(apiUrl + "property-types/")
       .then((response) => response.json())
       .then(({ options }) => setPropertyTypes(options));
+  };
+
+  const getApiNeighborhoodsOptions = async () => {
+    await fetch(apiUrl + "neighborhoods/")
+      .then((response) => response.json())
+      .then(({ options }) => setNeighborhoods(options));
   };
 
   const getApiPrediction = async (data) => {
@@ -49,6 +56,7 @@ const App = () => {
 
   useEffect(() => {
     getApiPropertyTypeOptions();
+    getApiNeighborhoodsOptions();
   }, []);
 
   const onSubmit = (data) => {
@@ -64,18 +72,21 @@ const App = () => {
             <Features>
               <FeatureSelectField
                 label={"Property Type"}
-                id={"property_type"}
+                id={"neighborhood"}
                 name={"property_type"}
                 options={propertyTypes}
+                defaultMessage={"Select a property type"}
                 register={register}
                 errors={errors}
               />
-              <FeatureTextField
+              <FeatureSelectField
                 label={"Neighborhood"}
                 id={"neighborhood"}
                 name={"neighborhood"}
-                placeholder={"Neighborhood"}
+                options={neighborhoods}
+                defaultMessage={"Select a neighborhood"}
                 register={register}
+                errors={errors}
               />
               <FeatureAreaField
                 label={"Usable area"}

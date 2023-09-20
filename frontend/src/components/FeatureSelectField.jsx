@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 
-const FeatureSelectField = ({ label, id, name, options, register, errors }) => {
+const FeatureSelectField = ({
+  label,
+  id,
+  name,
+  options,
+  defaultMessage,
+  register,
+  errors,
+}) => {
   const [optionValue, setOptionValue] = useState("");
 
   return (
@@ -10,13 +18,13 @@ const FeatureSelectField = ({ label, id, name, options, register, errors }) => {
       <select
         id={id}
         {...register(name, {
-          required: "Select a valid property type.",
+          required: "Select a valid option.",
         })}
         defaultValue={""}
         onChange={(e) => e.target.value}
       >
         <option value="" key={id + "option_null"} disabled hidden>
-          Select a property type
+          {defaultMessage}
         </option>
         {options.map((value, index) => (
           <option value={value} key={id + "option" + index}>
