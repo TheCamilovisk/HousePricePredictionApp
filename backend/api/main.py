@@ -6,46 +6,27 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .config import Settings
 from .entities import House, OptionsListOutput, SalePicesPredictions
-from .ml import make_predictions
-from .services import houses_as_dicts
-from .utils import (
-    load_model,
-    load_neighborhoods_list,
-    load_preprocessing_pipelines,
-    load_property_types_list,
-)
+from .fields_data import OptionsListProvider, create_artifacts_provider
+from .prediction import PredictionPipeline, create_predictor_from_artifacts
 
-predictor = None
-features_transform = None
-target_transform = None
-
-property_types_list = None
-neighborhood_list = None
+prediction_pipeline: PredictionPipeline = None
+options_provider: OptionsListProvider = None
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    global predictor
-    global features_transform
-    global target_transform
-    global property_types_list
-    global neighborhood_list
+    global prediction_pipeline
+    global options_provider
 
     settings = Settings()
 
-    features_transform, target_transform = load_preprocessing_pipelines(settings)
-    predictor = load_model(settings)
-
-    property_types_list = load_property_types_list(settings)
-    neighborhood_list = load_neighborhoods_list(settings)
+    prediction_pipeline = create_predictor_from_artifacts(settings)
+    options_provider = create_artifacts_provider(settings)
 
     yield
 
-    del features_transform
-    del target_transform
-    del predictor
-    del property_types_list
-    del neighborhood_list
+    del prediction_pipeline
+    del options_provider
 
 
 app = FastAPI(lifespan=lifespan)
@@ -69,20 +50,19 @@ api_router = APIRouter()
 
 @api_router.post("/predict/")
 async def predict(houses: List[House]) -> SalePicesPredictions:
-    houses_dicts = houses_as_dicts(houses)
-    sales_prices = make_predictions(
-        houses_dicts, predictor, features_transform, target_transform
-    )
+    sales_prices = prediction_pipeline.predict(houses)
     return SalePicesPredictions(sale_prices=sales_prices)
 
 
 @api_router.get("/property-types/")
 async def property_types() -> OptionsListOutput:
+    property_types_list = options_provider.get_property_types_options()
     return OptionsListOutput(options=property_types_list)
 
 
 @api_router.get("/neighborhoods/")
 async def neighborhoods() -> OptionsListOutput:
+    neighborhood_list = options_provider.get_neighborhoods_options()
     return OptionsListOutput(options=neighborhood_list)
 
 
