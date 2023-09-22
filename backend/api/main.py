@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .config import Settings
 from .entities import House, OptionsListOutput, SalePicesPredictions
-from .fields_data import OptionsListProvider, create_artifacts_provider
+from .providers import OptionsListProvider, create_artifacts_provider
 from .prediction import PredictionPipeline, create_predictor_from_artifacts
 
 prediction_pipeline: PredictionPipeline = None
